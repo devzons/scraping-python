@@ -38,3 +38,14 @@ Ul
     </td>
   </tr>
 </table>
+
+### Scrapy
+* setup environment
+  - install Anaconda
+  - install dependencies `conda install scrapy pylint autopep8 -y`
+* run scrapy
+`scrapy crawl <name>`
+
+* Errors
+  - ValueError: Missing scheme in request url: http or https protocol related error - usu. relative url
+  - DEBUG: Filtered offsite request to 'www..': extra '//' error
