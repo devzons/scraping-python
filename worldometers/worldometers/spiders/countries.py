@@ -21,6 +21,7 @@ class CountriesSpider(scrapy.Spider):
         for row in rows:
             year = row.xpath('.//td[1]/text()').get()
             population = row.xpath('.//td[2]/strong/text()').get()
+            
             yield {
                 'country_name': name,
                 'year': year,

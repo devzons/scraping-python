@@ -49,3 +49,6 @@ Ul
 * Errors
   - ValueError: Missing scheme in request url: http or https protocol related error - usu. relative url
   - DEBUG: Filtered offsite request to 'www..': extra '//' error
+
+### Export dataset
+`scrapy crawl <name> -o <filename:json, csv, xml>` - easy json format: alt+shft+f
