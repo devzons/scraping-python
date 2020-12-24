@@ -6,13 +6,23 @@ from scrapy.spiders import CrawlSpider, Rule
 class BestMoviesSpider(CrawlSpider):
     name = 'best_movies'
     allowed_domains = ['imdb.com']
-    start_urls = ['https://www.imdb.com/search/title/?groups=top_250&sort=user_rating']
+
+    user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
+
+    def start_requests(self):
+        yield scrapy.Request(url='https://www.imdb.com/search/title/?groups=top_250&sort=user_rating', headers={
+            'User-Agent': self.user_agent
+        })
 
     rules = (
-        Rule(LinkExtractor(restrict_xpaths="//h3[@class='lister-item-header']/a"), callback='parse_item', follow=True),
-        Rule(LinkExtractor(restrict_xpaths="(//a[@class='lister-page-next next-page'])[2]"))
+        Rule(LinkExtractor(restrict_xpaths="//h3[@class='lister-item-header']/a"), callback='parse_item', follow=True, process_request='set_user_agent'),
+        Rule(LinkExtractor(restrict_xpaths="(//a[@class='lister-page-next next-page'])[2]"), process_request='set_user_agent')
         
     )
+
+    def set_user_agent(self, request, response):
+        request.headers['User-Agent'] = self.user_agent
+        return request
 
     def parse_item(self, response):
         yield {
@@ -22,4 +32,5 @@ class BestMoviesSpider(CrawlSpider):
             'genre': response.xpath("//div[@class='subtext']/a[1]/text()").get(),
             'rating': response.xpath("//span[@itemprop='ratingValue']/text()").get(),
             'movie_url': response.url,
+            'user-agent': response.request.headers['User-Agent']
         }
