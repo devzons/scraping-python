@@ -108,3 +108,19 @@ Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
 Rule(LinkExtractor(restrict_xpaths=('//a[@class="active"]')), callback='parse_item', follow=True),
 Rule(LinkExtractor(restrict_css=('//a[@class="active"]')), callback='parse_item', follow=True),
 ```
+
+### Splash - javascript rendering
+* install docker toolbox
+* install splash scrapinghub/splash:latest
+* configure ports: 8050
+`localhost:8050`
+```
+function main(splash, args)
+  url = args.url
+  splash:go(url)
+  return {
+    image = splash:png(),
+    html = splash:html()
+  }
+end
+```
