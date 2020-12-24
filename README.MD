@@ -1,3 +1,23 @@
+### Why web scraping?
+
+| Data analysis | Machine learning|
+|---|---|
+|Data analysis relies 100% on large amounts of data(datasets).<br>The more data you have the more accurate your data analysis will be.| Machine learning requires a huge amounts of data.<br>The more data you have the more your system can learn!|
+
+#### Why web scraping
+* Lead generation
+* Real estate listings
+* Price minotoring
+* Stock market tracking
+* Drop shipping
+
+#### When to / not use web scraping
+* Terms of services & the Robot.txt
+* Does the website have a public API?
+* Does the API have any limitations?
+* Does the API provide all the data you want?
+* Is the API free/paid?
+
 ### Selectors
 `//elementName[@attribute='value']`
 `//elementName[@id='value']`
@@ -66,4 +86,25 @@ scrapy genspider pharmacy www.chewy.com/b/pharmacy-2515
 ### Debugging Spiders
 ```
 scrapy parse --spider=pharmacy -c parse_product -d 2 <item_url>
+```
+
+### Crawl spider structure
+```
+scrapy genspider -l
+basic
+crawl
+csvfeed
+xmlfeed
+```
+
+### imdb project
+```
+scrapy startproject imdb
+cd imdb
+scrapy genspider -t crawl best_movies imdb.com
+
+## rules
+Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
+Rule(LinkExtractor(restrict_xpaths=('//a[@class="active"]')), callback='parse_item', follow=True),
+Rule(LinkExtractor(restrict_css=('//a[@class="active"]')), callback='parse_item', follow=True),
 ```

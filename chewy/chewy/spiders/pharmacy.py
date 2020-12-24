@@ -18,9 +18,9 @@ class PharmacySpider(scrapy.Spider):
                 'brand': product.xpath('.//div[@class="content"]/h2/strong/text()').get(),
                 'title': product.xpath('.//div[@class="content"]/h2/text()').extract(),
                 'url': response.urljoin(product.xpath(".//a[@class='product']/@href").get()),
-                'autoship_price': product.xpath('.//p[@class="autoship"]/strong/text()').get(),
-                'price': product.xpath('.//p[@class="price"]/strong/text()').get(),
-                'old_price': product.xpath('.//p[@class="price"]/span[@class="price-old"]/text()').get(),
+                'autoship_price': product.xpath('normalize-space(.//p[@class="autoship"]/strong/text())').get(),
+                'price': product.xpath('normalize-space(.//p[@class="price"]/strong/text())').get(),
+                'old_price': product.xpath('normalize-space(.//p[@class="price"]/span[@class="price-old"]/text())').get(),
                 'rating': product.xpath('.//p[@class="rating item-rating"]/span/text()').get()
             }
 
