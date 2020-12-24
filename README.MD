@@ -52,3 +52,18 @@ Ul
 
 ### Export dataset
 `scrapy crawl <name> -o <filename:json, csv, xml>` - easy json format: alt+shft+f
+
+### Chewy.com project
+* chewy.com/robots.txt
+* disable javascript by choosing cmd+shft+P from browser inspect
+
+```
+scrapy startproject chewy
+cd chewy
+scrapy genspider pharmacy www.chewy.com/b/pharmacy-2515
+```
+
+### Debugging Spiders
+```
+scrapy parse --spider=pharmacy -c parse_product -d 2 <item_url>
+```

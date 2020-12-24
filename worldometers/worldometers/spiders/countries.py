@@ -14,6 +14,7 @@ class CountriesSpider(scrapy.Spider):
             link = country.xpath('.//@href').get()
 
             yield response.follow(url=link, callback=self.parse_country, meta={'country_name': name})
+        # yield response.follow(url='http://www.worldometers.info/world-population/china-population/', callback=self.parse_country, meta={'country_name': 'China'})
 
     def parse_country(self, response):
         name = response.request.meta['country_name']
